@@ -54,10 +54,10 @@ public class Disciplina implements Serializable{
     private String conhecimentosMinimos;
     
     @ManyToMany
-    @JoinTable(name = "realizou", joinColumns = 
+    @JoinTable(name = "alunosdadisciplina", joinColumns = 
             @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "aluno", referencedColumnName =  "id", nullable = false))
-    private List<Aluno> realizou = new ArrayList<>();
+    private List<Aluno> alunosdadisciplina = new ArrayList<>();
 
     
     public Disciplina(){
@@ -104,12 +104,13 @@ public class Disciplina implements Serializable{
         this.conhecimentosMinimos = conhecimentosMinimos;
     }
 
-    public List<Aluno> getRealizou() {
-        return realizou;
+    public List<Aluno> getAlunosdadisciplina() {
+        return alunosdadisciplina;
     }
 
-    public void setRealizou(List<Aluno> realizou) {
-        this.realizou = realizou;
+    public void setAlunosdadisciplina(List<Aluno> alunosdadisciplina) {
+        this.alunosdadisciplina = alunosdadisciplina;
     }
-    
+
+  
 }

@@ -61,10 +61,10 @@ public class Aluno implements Serializable {
     private Calendar nascimento;
 
     @ManyToMany
-    @JoinTable(name = "realizou", joinColumns
+    @JoinTable(name = "alunosdadisciplina", joinColumns
             = @JoinColumn(name = "aluno", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false))
-    private List<Disciplina> realizara = new ArrayList<>();
+    private List<Disciplina> disciplinadoaluno = new ArrayList<>();
 
     public Aluno() {
 
@@ -102,11 +102,13 @@ public class Aluno implements Serializable {
         this.nascimento = nascimento;
     }
 
-    public List<Disciplina> getRealizou() {
-        return realizara;
+    public List<Disciplina> getDisciplinadoaluno() {
+        return disciplinadoaluno;
     }
 
-    public void setRealizou(List<Disciplina> realizara) {
-        this.realizara = realizara;
+    public void setDisciplinadoaluno(List<Disciplina> disciplinadoaluno) {
+        this.disciplinadoaluno = disciplinadoaluno;
     }
+
+   
 }
