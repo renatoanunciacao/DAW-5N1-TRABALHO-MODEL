@@ -8,18 +8,23 @@ package br.edu.ifsul.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.ForeignKey;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -58,6 +63,16 @@ public class Disciplina implements Serializable{
             @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "aluno", referencedColumnName =  "id", nullable = false))
     private List<Aluno> alunosdadisciplina = new ArrayList<>();
+    
+   @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Nota> notas;
+   
+   @NotNull(message = "O curso não pode ser nulo")
+   @ManyToOne
+   @JoinColumn(name = "curso", referencedColumnName = "id", nullable = true)
+   @ForeignKey(name = "fk_curso_id")
+   private Curso curso;
+    
 
     
     public Disciplina(){
@@ -111,6 +126,24 @@ public class Disciplina implements Serializable{
     public void setAlunosdadisciplina(List<Aluno> alunosdadisciplina) {
         this.alunosdadisciplina = alunosdadisciplina;
     }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+
 
   
 }
