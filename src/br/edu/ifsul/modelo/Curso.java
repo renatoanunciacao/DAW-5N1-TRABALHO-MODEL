@@ -15,12 +15,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.ForeignKey;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -64,6 +67,12 @@ public class Curso implements Serializable {
     
     @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Disciplina> disciplinas;
+    
+    @NotNull(message = "A instituição não pode ser nula")
+    @ManyToOne
+    @JoinColumn(name = "instituicao", referencedColumnName = "id", nullable = false)
+    @ForeignKey(name = "fk_instituicao_id")
+    private Instituicao instituicao;
 
     public Integer getId() {
         return id;
@@ -119,6 +128,14 @@ public class Curso implements Serializable {
 
     public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
     }
 
 }

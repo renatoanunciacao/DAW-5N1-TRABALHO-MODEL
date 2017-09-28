@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,8 +70,7 @@ public class Aluno implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false))
     private List<Disciplina> disciplinadoaluno = new ArrayList<>();
     
-//    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-//    private Nota nota;
+
 
     public Aluno() {
 
@@ -116,13 +116,32 @@ public class Aluno implements Serializable {
         this.disciplinadoaluno = disciplinadoaluno;
     }
 
-//    public Nota getNota() {
-//        return nota;
-//    }
-//
-//    public void setNota(Nota nota) {
-//        this.nota = nota;
-//    }
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Aluno other = (Aluno) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+
 
    
 }
