@@ -6,6 +6,7 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,13 +38,13 @@ public class Nota implements Serializable {
     private Double nota2;
     @Column(name = "media", columnDefinition = "decimal(12,2)")
     private Double media;
-    
+
     @NotNull(message = "O aluno não pode ser nulo")
     @ManyToOne
     @JoinColumn(name = "aluno", referencedColumnName = "id", nullable = false)
     @ForeignKey(name = "fk_aluno_id")
     private Aluno aluno;
-    
+
     @NotNull(message = "A disciplina não pode ser nula")
     @ManyToOne
     @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false)
@@ -100,6 +101,31 @@ public class Nota implements Serializable {
 
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Nota other = (Nota) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
 }
