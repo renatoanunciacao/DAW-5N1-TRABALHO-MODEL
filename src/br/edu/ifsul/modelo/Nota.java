@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.ForeignKey;
 
@@ -32,10 +33,14 @@ public class Nota implements Serializable {
     @GeneratedValue(generator = "seq_nota", strategy = GenerationType.SEQUENCE)
     private Integer id;
 
+    @Min(value = 0, message = "A nota 1 não pode ser menor do que {value}")
     @Column(name = "nota1", columnDefinition = "decimal(12,2)")
     private Double nota1;
+    
+    @Min(value = 0, message = "A nota 2 não pode ser menor do que {value}")
     @Column(name = "nota2", columnDefinition = "decimal(12,2)")
     private Double nota2;
+    
     @Column(name = "media", columnDefinition = "decimal(12,2)")
     private Double media;
 

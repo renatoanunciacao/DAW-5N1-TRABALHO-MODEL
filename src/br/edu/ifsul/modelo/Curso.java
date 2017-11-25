@@ -39,7 +39,6 @@ public class Curso implements Serializable {
     @Id
     @SequenceGenerator(name = "seq_curso", sequenceName = "seq_curso_id", allocationSize = 1)
     @GeneratedValue(generator = "seq_curso", strategy = GenerationType.SEQUENCE)
-
     private Integer id;
 
     @NotNull(message = "O nome não pode ser nulo")
@@ -75,6 +74,9 @@ public class Curso implements Serializable {
     @ForeignKey(name = "fk_instituicao_id")
     private Instituicao instituicao;
 
+    public Curso(){
+        
+    }
     public Integer getId() {
         return id;
     }
