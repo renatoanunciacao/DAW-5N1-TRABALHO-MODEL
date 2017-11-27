@@ -64,19 +64,29 @@ public class Curso implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "inicio_atividades", nullable = false)
     private Calendar iniciAtividades;
-    
-    @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Disciplina> disciplinas;
-    
+
     @NotNull(message = "A instituição não pode ser nula")
     @ManyToOne
     @JoinColumn(name = "instituicao", referencedColumnName = "id", nullable = false)
     @ForeignKey(name = "fk_instituicao_id")
     private Instituicao instituicao;
 
-    public Curso(){
-        
+    public Curso() {
+
     }
+
+    public void adicionarDisciplina(Disciplina obj) {
+        obj.setCurso(this);
+        this.disciplinas.add(obj);
+    }
+
+    public void removerDisciplina(int index) {
+        this.disciplinas.remove(index);
+    }
+
     public Integer getId() {
         return id;
     }
@@ -166,5 +176,4 @@ public class Curso implements Serializable {
         return true;
     }
 
-    
 }
